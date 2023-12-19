@@ -9,6 +9,9 @@ using webapi.Models;
 
 namespace webapi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
+
     public class PersonsController : Controller
     {
         private readonly KoodaajakoulutusContext _context;
@@ -19,15 +22,26 @@ namespace webapi.Controllers
         }
 
         // GET: Persons
-        public async Task<IActionResult> Index()
+        [HttpGet(Name = "GetPersons")]
+        
+        public IEnumerable<Person> Indexxx()
         {
-            return View(await _context.Persons.ToListAsync());
+            //Fetch all persons from database
+            Person[] allPeople = _context.Persons.ToArray();
+ 
+
+            return allPeople;
+
+
+            // return _context.Persons != null ?
+           //  View(await _context.Persons.ToListAsync()):
+           //  Problem("Entity set 'KoodaajakoulutusContext.Persons'  is null.");
         }
 
         // GET: Persons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null ||  _context.Persons == null)
             {
                 return NotFound();
             }

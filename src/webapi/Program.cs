@@ -1,9 +1,15 @@
+using webapi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<KoodaajakoulutusContext>();
+
 
 var app = builder.Build();
 
@@ -17,6 +23,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 Console.WriteLine("Running...");
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
 
