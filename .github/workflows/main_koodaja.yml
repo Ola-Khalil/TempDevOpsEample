@@ -34,26 +34,34 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+
+
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+        
+
     
     steps:
       - name: Download Artifactb
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-    repository: Ola-Khalil/TempDevOpsEample
+          
+   
     
-      
+   
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        
+        
         with:
           app-name: 'koodaja'
-          slot-name: 'Production'
+       
+
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2D5FCB7715C34CC597529AA2EAF4FF54 }}
