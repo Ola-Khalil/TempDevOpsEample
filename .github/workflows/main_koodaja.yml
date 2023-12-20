@@ -42,10 +42,10 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     
     steps:
-      - name: Download artifact from build job
+      - name: Download Artifactb
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
+          name: .net-appp
       
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
