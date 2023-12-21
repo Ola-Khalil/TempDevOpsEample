@@ -51,9 +51,6 @@ jobs:
         with:
           name: .net-app
           
-   
-    
-   
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -61,7 +58,6 @@ jobs:
         
         with:
           app-name: 'koodaja'
-       
-
+          slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2D5FCB7715C34CC597529AA2EAF4FF54 }}
