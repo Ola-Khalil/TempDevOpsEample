@@ -39,27 +39,58 @@ namespace webapi.Controllers
         }
 
         // GET: Persons/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> GetPersons(int id)
         {
-            if (id == null ||  _context.Persons == null)
-            {
+            if (_context.Persons == null)
+              {
                 return NotFound();
-            }
+              }
+            
 
             var person = await _context.Persons
-                .FirstOrDefaultAsync(m => m.PersonId == id);
+                .FirstOrDefaultAsync(id);
             if (person == null)
             {
                 return NotFound();
             }
 
-            return View(person);
+            return person;
         }
 
         // GET: Persons/Create
         public IActionResult Create()
         {
             return View();
+        }
+         // PUT: api/Person/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPerson(int id, Person person)
+        {
+            if (id != person.Personid)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(person).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
         // POST: Persons/Create
